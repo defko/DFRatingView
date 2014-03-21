@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6A2710E818DB69C10066633F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2710E718DB69C10066633F /* ViewController.m */; };
-		6A27110718DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.56.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A27110518DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.56.png */; };
-		6A27110818DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.59.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A27110618DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.59.png */; };
+		6A27110B18DC89C60066633F /* example1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A27110918DC89C60066633F /* example1.png */; };
+		6A27110C18DC89C60066633F /* example2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A27110A18DC89C60066633F /* example2.png */; };
 		6AD16BC018C71C92004E2882 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD16BBF18C71C92004E2882 /* Foundation.framework */; };
 		6AD16BC218C71C92004E2882 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD16BC118C71C92004E2882 /* CoreGraphics.framework */; };
 		6AD16BC418C71C92004E2882 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD16BC318C71C92004E2882 /* UIKit.framework */; };
@@ -39,8 +39,8 @@
 /* Begin PBXFileReference section */
 		6A2710E618DB69C10066633F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6A2710E718DB69C10066633F /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		6A27110518DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.56.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iOS Simulator Screen shot 21 Mar 2014 15.35.56.png"; sourceTree = "<group>"; };
-		6A27110618DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.59.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iOS Simulator Screen shot 21 Mar 2014 15.35.59.png"; sourceTree = "<group>"; };
+		6A27110918DC89C60066633F /* example1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example1.png; sourceTree = "<group>"; };
+		6A27110A18DC89C60066633F /* example2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example2.png; sourceTree = "<group>"; };
 		6AD16BBC18C71C92004E2882 /* DFRatingView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DFRatingView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD16BBF18C71C92004E2882 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6AD16BC118C71C92004E2882 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,8 +89,8 @@
 		6A27110418DC86760066633F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6A27110518DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.56.png */,
-				6A27110618DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.59.png */,
+				6A27110918DC89C60066633F /* example1.png */,
+				6A27110A18DC89C60066633F /* example2.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -254,9 +254,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A27110818DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.59.png in Resources */,
 				6AD16BCA18C71C92004E2882 /* InfoPlist.strings in Resources */,
-				6A27110718DC868A0066633F /* iOS Simulator Screen shot 21 Mar 2014 15.35.56.png in Resources */,
+				6A27110B18DC89C60066633F /* example1.png in Resources */,
+				6A27110C18DC89C60066633F /* example2.png in Resources */,
 				6AD16BEF18C71CAE004E2882 /* iPhone.storyboard in Resources */,
 				6AD16BD218C71C92004E2882 /* Images.xcassets in Resources */,
 			);

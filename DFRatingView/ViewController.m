@@ -20,8 +20,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   // self.ratingView.starCount = 5;
-  //  self.ratingView.rating = 3;
+    self.ratingView.starCount = 10;
+    self.ratingView.rating = 5;
    // self.ratingView.isActionEnabled = NO;
 }
 
