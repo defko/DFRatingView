@@ -19,8 +19,8 @@ Actually it works just with iOS7
   - starColor
   - circleColor
   
-![Example](//example1.png)
-![example2](//example2.png)
+![Example](/DFRatingView/DFRatingView/Resources/example1.png)
+![example2](/DFRatingView/DFRatingView/Resources/example2.png)
   
 
 
