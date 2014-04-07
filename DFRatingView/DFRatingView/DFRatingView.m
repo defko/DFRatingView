@@ -11,9 +11,11 @@
 
 @interface DFRatingView()
 @property (nonatomic,assign) NSInteger lastSelectedTag;
+@property (nonatomic,readonly) NSInteger circeOffset;
 @end
 
-static const NSInteger kTagOffset = 50;
+static const NSInteger kStarTagOffset = 50;
+static const NSInteger kCircleTagOffset = 50;
 static const NSInteger kTagSelf = 999;
 @implementation DFRatingView
 
@@ -45,13 +47,13 @@ static const NSInteger kTagSelf = 999;
         CGRect rect = CGRectMake(i*widthofOneStar, 0, widthofOneStar, widthofOneStar);
         DFRatingStar* star = [[DFRatingStar alloc] initWithFrame:rect];
         star.hidden = YES;
-        star.tag = i;
+        star.tag = i+kStarTagOffset;
         [self addSubview:star];
         
         CGRect circleRect = CGRectMake((i*widthofOneStar) + (widthofOneStar/4), (widthofOneStar/4), widthofOneStar/2, widthofOneStar/2);
         DFRatingCircle* circle = [[DFRatingCircle alloc] initWithFrame:circleRect];
         circle.circleColor = [UIColor grayColor];
-        circle.tag = i+kTagOffset;
+        circle.tag = i + self.circeOffset;
         [self addSubview:circle];
     }
 }
@@ -84,7 +86,7 @@ static const NSInteger kTagSelf = 999;
 {
     _starColor = starColor;
     for (int i = 0; i<self.starCount; i++) {
-         DFRatingStar* starview = (DFRatingStar*)[self viewWithTag:i];
+        DFRatingStar* starview = (DFRatingStar*)[self viewWithTag:i+kStarTagOffset];
         starview.starColor = starColor;
         [starview setNeedsDisplay];
     }
@@ -94,7 +96,7 @@ static const NSInteger kTagSelf = 999;
 {
     _circleColor = circleColor;
     for (int i = 0; i<self.starCount; i++) {
-        DFRatingCircle* circleView = (DFRatingCircle*)[self viewWithTag:i+kTagOffset];
+        DFRatingCircle* circleView = (DFRatingCircle*)[self viewWithTag:i+self.circeOffset];
         circleView.circleColor = circleColor;
         [circleView setNeedsDisplay];
     }
@@ -114,12 +116,12 @@ static const NSInteger kTagSelf = 999;
 {
     if (self.isActionEnabled) {
         UIView *view = [self hitTest:[[touches anyObject] locationInView:self] withEvent:nil];
-        if (view.tag>=kTagOffset && view.tag != kTagSelf) {
-            if (self.lastSelectedTag != view.tag && self.lastSelectedTag != view.tag-kTagOffset) {
+        if (view.tag>=self.circeOffset && view.tag != kTagSelf && view.tag>10) {
+            if (self.lastSelectedTag != view.tag && self.lastSelectedTag != view.tag-kCircleTagOffset) {
                 [self changeRating:touches];
             }
-        } else if (view.tag != kTagSelf){
-            if (self.lastSelectedTag != view.tag && self.lastSelectedTag != view.tag+kTagOffset) {
+        } else if (view.tag != kTagSelf && view.tag>10){
+            if (self.lastSelectedTag != view.tag && self.lastSelectedTag != view.tag+kCircleTagOffset) {
                 [self changeRating:touches];
             }
         }
@@ -131,12 +133,17 @@ static const NSInteger kTagSelf = 999;
 {
     UIView *view = [self hitTest:[[touches anyObject] locationInView:self] withEvent:nil];
     if (view) {
-        if (view.tag >= kTagOffset && view.tag <kTagSelf) {
-            [self showTo:view.tag-kTagOffset];
+        if (view.tag >= (self.circeOffset) && view.tag <kTagSelf) {
+            [self showTo:view.tag-self.circeOffset];
         } else if (view.tag < kTagSelf){
-            [self hidesTo:view.tag];
+            [self hidesTo:view.tag-kStarTagOffset];
         }
         self.lastSelectedTag = view.tag;
+        if (view.tag != kTagSelf && view.tag>=self.circeOffset) {
+            _rating = view.tag-self.circeOffset+1;
+        } else if (view.tag != kTagSelf && view.tag >= kStarTagOffset){
+            _rating = view.tag - kStarTagOffset;
+        }
     }
 }
 
@@ -154,10 +161,24 @@ static const NSInteger kTagSelf = 999;
     }
 }
 
+- (NSInteger) circeOffset
+{
+    return kStarTagOffset + kCircleTagOffset;
+}
+
 - (void) animate:(NSInteger) tag hide:(BOOL) isHide
 {
-    UIView* starview = [self viewWithTag:tag];
-    UIView* circleview = [self viewWithTag:tag+kTagOffset];
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
+        [self animateiOS7:tag hide:isHide];
+    } else {
+        [self animateiOS61:tag hide:isHide];
+    }
+}
+
+- (void) animateiOS7:(NSInteger) tag hide:(BOOL) isHide
+{
+    UIView* starview = [self viewWithTag:tag+kStarTagOffset];
+    UIView* circleview = [self viewWithTag:tag+self.circeOffset];
     CATransform3D t1 = [self scaleWithView:starview direction:isHide];
     CATransform3D t2 = [self scaleWithView:circleview direction:!isHide];
     [UIView animateKeyframesWithDuration:0.1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
@@ -165,13 +186,36 @@ static const NSInteger kTagSelf = 999;
         [UIView addKeyframeWithRelativeStartTime:0.0f relativeDuration:1.f animations:^{
             starview.layer.transform = t1;
         }];
-
+        
         [UIView addKeyframeWithRelativeStartTime:0.0f relativeDuration:1.f animations:^{
             circleview.layer.transform = t2;
         }];
         
     } completion:^(BOOL finished) {
         starview.hidden = isHide;
+        circleview.hidden = !isHide;
+    }];
+}
+
+- (void) animateiOS61:(NSInteger) tag hide:(BOOL) isHide
+{
+    UIView* starview = [self viewWithTag:tag+kStarTagOffset];
+    CATransform3D t1 = [self scaleWithView:starview direction:isHide];
+    [UIView animateWithDuration:0.1 animations:^{
+        starview.layer.transform = t1;
+    } completion:^(BOOL finished){
+        starview.hidden = isHide;
+        [self animateiOS62:tag hide:isHide];
+    }];
+}
+
+- (void) animateiOS62:(NSInteger) tag hide:(BOOL) isHide
+{
+    UIView* circleview = [self viewWithTag:tag+self.circeOffset];
+    CATransform3D t2 = [self scaleWithView:circleview direction:!isHide];
+    [UIView animateWithDuration:0.1 animations:^{
+        circleview.layer.transform = t2;
+    } completion:^(BOOL finished){
         circleview.hidden = !isHide;
     }];
 }
