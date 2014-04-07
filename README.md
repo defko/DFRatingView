@@ -4,7 +4,7 @@ DFRatingView
 Customizable rating view 
 
 Example in the project.
-Actually it works just with iOS7
+Support iOS6<
 
 ##  Setup
 -------
